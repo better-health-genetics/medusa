@@ -1,0 +1,26 @@
+{
+  "name": "medusa",
+  "version": "1.0.0",
+  "description": "[![Stack Overflow][stackoverflow-shield]][stackoverflow-link]",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/better-health-genetics/medusa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/better-health-genetics/medusa/issues"
+  },
+  "homepage": "https://github.com/better-health-genetics/medusa#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "googleapis": "^173.0.0",
+    "zod": "^4.4.3"
+  }
+}

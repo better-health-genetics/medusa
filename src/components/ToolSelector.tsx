@@ -2,26 +2,35 @@ import { motion } from 'framer-motion'; // ⚠️ Gorgon legacy UI — active Fa
 import { Package, FileCode, Coffee, Terminal as TerminalIcon } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import type { Tool } from '../types';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const TYPE_ICONS = {
+const TYPE_ICONS: Record<Tool['type'], React.ReactNode> = {
   node: <Package className="w-4 h-4" />,
   appsscript: <FileCode className="w-4 h-4" />,
   java: <Coffee className="w-4 h-4" />,
   python: <TerminalIcon className="w-4 h-4" />,
 };
 
-export function ToolSelector({ tools, selectedTool, onSelect }) {
+export function ToolSelector({ 
+  tools, 
+  selectedTool, 
+  onSelect 
+}: { 
+  tools: Tool[]; 
+  selectedTool: Tool | null; 
+  onSelect: (tool: Tool) => void;
+}) {
   return (
     <div className="w-80 flex flex-col bg-black/20 border-r border-neon/10 h-full">
       <div className="p-4 border-b border-neon/10 bg-neon/5">
         <h2 className="text-xs uppercase tracking-[0.3em] font-bold opacity-70">The Heads (Tool Index)</h2>
       </div>
       <div className="flex-1 overflow-y-auto scrollbar-thin p-2 space-y-1">
-        {tools.map((tool, index) => (
+        {tools.map((tool: Tool, index: number) => (
           <motion.button
             key={`${tool.path}:${tool.type || 'tool'}:${index}`}
             whileHover={{ x: 4 }}

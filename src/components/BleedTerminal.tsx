@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { Terminal as TerminalIcon, Cpu, Activity } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion'; // ⚠️ Gorgon legacy UI — active Face portal uses motion/react per AGENTS.md. Do not propagate this import pattern to bhcp-clinical-auth-gateway/.
+import { motion } from 'framer-motion'; // ⚠️ Gorgon legacy UI — active Face portal uses motion/react per AGENTS.md. Do not propagate this import pattern to bhcp-clinical-auth-gateway/.
+import type { LogEntry } from '../types';
 
-export function BleedTerminal({ logs }) {
+export function BleedTerminal({ logs }: { logs: LogEntry[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export function BleedTerminal({ logs }) {
               <span>Awaiting transmission...</span>
             </div>
           )}
-          {logs.map((log, i) => (
+          {logs.map((log: LogEntry, i: number) => (
             <motion.div
               initial={{ opacity: 0, x: -5 }}
               animate={{ opacity: 1, x: 0 }}

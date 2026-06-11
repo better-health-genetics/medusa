@@ -1,8 +1,17 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Play, Code2, Database } from 'lucide-react';
+import type { Tool } from '../types';
 
-export function SpellEditor({ tool, onExecute, isExecuting }) {
+export function SpellEditor({ 
+  tool, 
+  onExecute, 
+  isExecuting 
+}: { 
+  tool: Tool | null; 
+  onExecute: (payload: unknown) => void; 
+  isExecuting: boolean;
+}) {
   const [payload, setPayload] = useState('{\n  "action": "execute",\n  "params": {}\n}');
 
   useEffect(() => {
@@ -36,7 +45,7 @@ export function SpellEditor({ tool, onExecute, isExecuting }) {
           <h2 className="text-xs uppercase tracking-[0.3em] font-bold opacity-70">The Spell (Configuration)</h2>
         </div>
         <div className="flex items-center gap-2">
-            <span className="text-[10px] opacity-40 font-mono">{tool.type.toUpperCase()} RUNTIME</span>
+            <span className="text-[10px] opacity-40 font-mono">{tool.type?.toUpperCase()} RUNTIME</span>
         </div>
       </div>
 

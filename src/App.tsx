@@ -3,41 +3,46 @@ import { motion, AnimatePresence } from 'framer-motion'; // ⚠️ Gorgon legacy
 import { ToolSelector } from './components/ToolSelector';
 import { SpellEditor } from './components/SpellEditor';
 import { BleedTerminal } from './components/BleedTerminal';
-import { Terminal, Shield, zap } from 'lucide-react';
+import { Shield } from 'lucide-react';
+import type { Tool, LogEntry } from './types';
 
 export default function App() {
-  const [tools, setTools] = useState([]);
-  const [selectedTool, setSelectedTool] = useState(null);
-  const [logs, setLogs] = useState([]);
+  const [tools, setTools] = useState<Tool[]>([]);
+  const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
+  const [logs, setLogs] = useState<LogEntry[]>([]);
   const [isExecuting, setIsExecuting] = useState(false);
 
   useEffect(() => {
     fetch('/api/tools')
       .then(res => res.json())
-      .then(setTools);
+      .then((data: Tool[]) => setTools(data));
   }, []);
 
-  const executeTool = (payload) => {
+  const executeTool = (payload: unknown) => {
     if (!selectedTool) return;
+    const tool = selectedTool; // capture for closure (selectedTool may be narrowed only here)
     
     setLogs([]);
     setIsExecuting(true);
 
     // Use the robust fetch + ReadableStream SSE reader only.
     // (EventSource cannot do POST; the prior attempt was emitting stray GET /api/execute 404s against the Vite origin.)
-    startExecution(payload);
+    startExecution(tool, payload);
   };
 
-  const startExecution = async (payload) => {
-    setLogs([{ type: 'system', content: `Initializing connection to ${selectedTool.name}...` }]);
+  const startExecution = async (tool: Tool, payload: unknown) => {
+    setLogs([{ type: 'system', content: `Initializing connection to ${tool.name}...` }]);
     
     try {
       const response = await fetch('/api/execute', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tool: selectedTool, payload })
+        body: JSON.stringify({ tool, payload })
       });
 
+      if (!response.body) {
+        throw new Error('No response body from execution stream');
+      }
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
 
@@ -53,7 +58,7 @@ export default function App() {
             try {
               const data = JSON.parse(line.slice(6));
               if (data.type === 'stdout' || data.type === 'stderr') {
-                setLogs(prev => [...prev, data]);
+                setLogs(prev => [...prev, data as LogEntry]);
               } else if (data.status === 'finished') {
                 setLogs(prev => [...prev, { type: 'system', content: `Execution finished with code ${data.code}` }]);
                 setIsExecuting(false);
@@ -66,8 +71,9 @@ export default function App() {
           }
         });
       }
-    } catch (error) {
-      setLogs(prev => [...prev, { type: 'error', content: error.message }]);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Unknown execution error';
+      setLogs(prev => [...prev, { type: 'error', content: message }]);
       setIsExecuting(false);
     }
   };

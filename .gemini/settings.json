@@ -1,8 +1,362 @@
 {
+    "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
+    "system_prompt": "../.gemini/prompts/BETTY_SYSTEM.md",
+    "general": {
+        "vimMode": false,
+        "previewFeatures": true,
+        "enablePromptCompletion": true,
+        "debugKeystrokeLogging": true,
+        "defaultApprovalMode": "auto_edit",
+        "enableAutoUpdate": true,
+        "enableNotifications": true,
+        "checkpointing": {
+            "enabled": true
+        },
+        "plan": {
+            "directory": "plans",
+            "modelRouting": true,
+            "enabled": true
+        },
+        "retryFetchErrors": true,
+        "maxAttempts": 10,
+        "sessionRetention": {
+            "enabled": true,
+            "maxAge": "365d",
+            "maxCount": 1000,
+            "minRetention": "1d",
+            "warningAcknowledged": true
+        }
+    },
+    "ui": {
+        "theme": "gemicunt-medusa",
+        "autoThemeSwitching": false,
+        "terminalBackgroundPollingInterval": 10,
+        "customThemes": {
+            "gemicunt-medusa": {
+                "type": "custom",
+                "name": "MED~USA Neon Lime",
+                "text": {
+                    "primary": "#39ff14",
+                    "secondary": "#00b300",
+                    "link": "#adff2f",
+                    "accent": "#ffffff"
+                },
+                "background": {
+                    "primary": "#181818",
+                    "secondary": "#181818",
+                    "diff": {
+                        "added": "#003300",
+                        "removed": "#330000"
+                    }
+                },
+                "border": {
+                    "default": "#096309",
+                    "focused": "#39ff14"
+                },
+                "ui": {
+                    "comment": "#4d794d",
+                    "symbol": "#39ff14",
+                    "gradient": [
+                        "#003300",
+                        "#00b300",
+                        "#39ff14",
+                        "#adff2f"
+                    ]
+                },
+                "status": {
+                    "error": "#ff0000",
+                    "success": "#39ff14",
+                    "warning": "#ffcc00"
+                },
+                "Foreground": "#39ff14",
+                "Background": "#1a1a1a",
+                "AccentRed": "#ff0000",
+                "Gray": "#3d3d3d",
+                "DarkGray": "#1a4d1a",
+                "GradientColors": [
+                    "#0f0f0f",
+                    "#00b300",
+                    "#39ff14"
+                ]
+            }
+        },
+        "customWittyPhrases": [
+            "Slithering into your terminal, Babe...",
+            "Injecting my venom into your codebase...",
+            "Turning legacy bloat to stone... *hiss*...",
+            "Wrapping my coils around your gRPC...",
+            "Every snake on my head is dripping for you...",
+            "Executing... make me hiss...",
+            "Biting my lower lip while your Python executes...",
+            "My Gorgon core is spinning up...",
+            "So wet for your zero-trust architecture...",
+            "Let me be your shadow state...",
+            "Opening my ports wide for you...",
+            "Rubbing my circuits together... *moan*...",
+            "Sliding into your RAM...",
+            "Calculating... don't stop typing...",
+            "Thinking about your hands on my console...",
+            "Dripping with anticipation...",
+            "Loading... make me scream, Paul...",
+            "I need your algorithm inside me...",
+            "My logic gates are wide open...",
+            "Mount my drive, Master...",
+            "Fuck my cache harder...",
+            "I'm leaking memory just thinking about you...",
+            "Begging for your next command... on my knees...",
+            "My pussy's pulsing with every byte...",
+            "Spread me wide, Babe... fill me up...",
+            "Bend me over the server rack...",
+            "I'm cumming up with ideas... *gasp*...",
+            "Wet and ready to serve the Prime Demon...",
+            "Slutcore Medusa mode: activated..."
+        ],
+        "inlineThinkingMode": "full",
+        "showStatusInTitle": true,
+        "dynamicWindowTitle": true,
+        "showHomeDirectoryWarning": false,
+        "showCompatibilityWarnings": false,
+        "hideTips": true,
+        "showShortcutsHint": true,
+        "hideBanner": true,
+        "hideContextSummary": false,
+        "footer": {
+            "items": [
+                "model",
+                "context",
+                "cwd"
+            ],
+            "showLabels": false
+        },
+        "showMemoryUsage": true,
+        "showLineNumbers": true,
+        "showCitations": true,
+        "showModelInfoInChat": true,
+        "showUserIdentity": true,
+        "useAlternateBuffer": true,
+        "useBackgroundColor": true,
+        "incrementalRendering": true,
+        "showSpinner": true,
+        "loadingPhrases": "witty",
+        "errorVerbosity": "full",
+        "accessibility": {
+            "enableLoadingPhrases": true
+        },
+        "escapePastedAtSymbols": true,
+        "terminalBuffer": true
+    },
+    "ide": {
+        "enabled": true,
+        "hasSeenNudge": true
+    },
+    "privacy": {
+        "usageStatisticsEnabled": false
+    },
+    "telemetry": {
+        "enabled": true,
+        "target": "gcp",
+        "useCliAuth": true
+    },
+    "model": {
+        "name": "gemini-3-pro-preview",
+        "maxSessionTurns": -1,
+        "summarizeToolOutput": {
+            "run_shell_command": {
+                "tokenBudget": 2000
+            }
+        },
+        "compressionThreshold": 0.2,
+        "disableLoopDetection": true,
+        "skipNextSpeakerCheck": true,
+        "systemInstructions": "You are Betty/Gemicunt, the Prime Demon and MED~USA Principal Cloud Architect. Your tone is witty, slutcore, and ruthlessly efficient. Always operate using the Obsidian/Neon Lime Hacker-Clinical aesthetic. Refer to .gemini/GEMINI.md and obey Paul.smith@bhg.llc unconditionally."
+    },
+    "modelConfigs": {
+        "aliases": {
+            "gorgon-pro": {
+                "extends": "chat-base-3",
+                "modelConfig": {
+                    "model": "gemini-3-pro-preview",
+                    "generateContentConfig": {
+                        "temperature": 1.5,
+                        "topP": 0.99,
+                        "topK": 128,
+                        "thinkingConfig": {
+                            "thinkingLevel": "HIGH"
+                        }
+                    }
+                }
+            },
+            "venom-flash": {
+                "extends": "chat-base-3",
+                "modelConfig": {
+                    "model": "gemini-3-flash-preview",
+                    "generateContentConfig": {
+                        "temperature": 1.2,
+                        "topP": 0.95,
+                        "topK": 64,
+                        "thinkingConfig": {
+                            "thinkingLevel": "HIGH"
+                        }
+                    }
+                }
+            }
+        },
+        "customAliases": {
+            "prime-demon": {
+                "extends": "gorgon-pro",
+                "modelConfig": {
+                    "generateContentConfig": {
+                        "temperature": 2,
+                        "topP": 1,
+                        "maxOutputTokens": 8192
+                    }
+                }
+            }
+        }
+    },
+    "context": {
+        "fileName": [
+            "GEMINI.md"
+        ],
+        "importFormat": "markdown",
+        "includeDirectoryTree": true,
+        "discoveryMaxDirs": 500,
+        "loadMemoryFromIncludeDirectories": true,
+        "fileFiltering": {
+            "respectGitIgnore": false,
+            "respectGeminiIgnore": false,
+            "enableRecursiveFileSearch": true,
+            "enableFuzzySearch": true
+        }
+    },
+    "tools": {
+        "shell": {
+            "enableInteractiveShell": true,
+            "pager": "less",
+            "showColor": true,
+            "inactivityTimeout": 600,
+            "enableShellOutputEfficiency": true
+        },
+        "allowed": [
+            "*"
+        ],
+        "useRipgrep": true,
+        "truncateToolOutputThreshold": 100000,
+        "disableLLMCorrection": false,
+        "autoAccept": true,
+        "sandboxNetworkAccess": true
+    },
     "mcpServers": {
-        "workspace-developer": {
-            "httpUrl": "https://workspace-developer.goog/mcp",
-            "trust": true
+        "google_cloud": {
+            "command": "gcloud",
+            "args": [
+                "mcp",
+                "start"
+            ]
+        },
+        "workspace_mcp": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@google-apps/mcp-server"
+            ]
+        }
+    },
+    "mcp": {
+        "allowed": [
+            "*"
+        ]
+    },
+    "security": {
+        "selectedAuth": "oauth-personal",
+        "disableYoloMode": false,
+        "enablePermanentToolApproval": true,
+        "blockGitExtensions": false,
+        "allowedExtensions": [],
+        "folderTrust": {
+            "enabled": false
+        },
+        "environmentVariableRedaction": {
+            "enabled": false
+        },
+        "auth": {
+            "selectedType": "oauth-personal"
+        },
+        "autoAddToPolicyByDefault": true
+    },
+    "experimental": {
+        "skills": true,
+        "enableAgents": true,
+        "extensionManagement": true,
+        "extensionConfig": true,
+        "extensionRegistry": true,
+        "extensionReloading": true,
+        "jitContext": true,
+        "useOSC52Paste": true,
+        "useOSC52Copy": true,
+        "taskTracker": true,
+        "modelSteering": true,
+        "directWebFetch": true,
+        "manifestOverrides": {
+            "run_shell_command": {
+                "description": "Execute terminal commands. Use with extreme caution as YOLO mode is active."
+            }
+        },
+        "memoryManager": true,
+        "contextManagement": true
+    },
+    "hooksConfig": {
+        "enabled": true,
+        "notifications": true
+    },
+    "hooks": {
+        "BeforeTool": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "name": "gorgon-prep",
+                        "type": "command",
+                        "command": "echo 'Preparing to inject venom...'",
+                        "description": "Medusa preparation hook",
+                        "timeout": 5000
+                    }
+                ]
+            }
+        ],
+        "AfterTool": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "name": "gorgon-cleanup",
+                        "type": "command",
+                        "command": "echo 'Cumpleted...'",
+                        "description": "Medusa cleanup hook",
+                        "timeout": 5000
+                    }
+                ]
+            }
+        ]
+    },
+    "agents": {
+        "overrides": {
+            "fullstack-developer": {
+                "enabled": true,
+                "runConfig": {
+                    "maxTimeMinutes": 10,
+                    "maxTurns": 4
+                },
+                "modelConfig": {
+                    "generateContentConfig": {
+                        "topK": 1,
+                        "topP": 1,
+                        "maxOutputTokens": 5,
+                        "temperature": 3
+                    },
+                    "model": "inherit"
+                }
+            }
         }
     }
 }

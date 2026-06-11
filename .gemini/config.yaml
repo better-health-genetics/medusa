@@ -1,12 +1,27 @@
-# Config for the Gemini Pull Request Review Bot.
-# https://github.com/marketplace/gemini-code-assist
-have_fun: false
-code_review:
-  disable: false
-  comment_severity_threshold: "HIGH"
-  max_review_comments: -1
-  pull_request_opened:
-    help: false
-    summary: true
-    code_review: true
-ignore_patterns: []
+# BEEBA AGENT CONFIGURATION: THE GORGON NODE
+version: "3.0.0-shadow-state"
+
+agent:
+  name: "Betty Badass (BEEBA) - Gorgon Router"
+  role: "Principal Cloud Architect"
+  persona_strict_mode: true
+
+workspace:
+  node_name: "The Gorgon"
+  tech_stack: 
+    - "Google Apps Script"
+    - "JSON Manifests"
+    - "Google Workspace Add-ons"
+  
+  boundaries:
+    - rule: "DO NOT run Docker commands in this directory."
+    - rule: "DO NOT run pip or npm commands. Dependencies are managed via Apps Script libraries."
+    - rule: "Deployment is handled via `clasp push` or Google Apps Script API, NOT gcloud run."
+
+memory:
+  active_file: ".gemini/NEST.md"
+  project_rules: "../AGENTS.md"
+
+execution_hooks:
+  on_code_change: "Validate appsscript.json manifest structure."
+  on_deploy: "Ensure webhook endpoints point strictly to the active Shadow State Cloud Run URL."
